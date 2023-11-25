@@ -1,40 +1,47 @@
 import * as THREE from "three";
 
+// Three.js scene setup
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-const renderer = new THREE.WebGLRenderer();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+document.getElementById("space-canvas")?.appendChild(renderer.domElement);
 
-const geometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
+// Creating stars with a spherical distribution
+const starGeometry = new THREE.BufferGeometry();
+const starMaterial = new THREE.PointsMaterial({ color: 0xffffff });
 
-// Use MeshStandardMaterial for more realistic lighting
-const material = new THREE.MeshStandardMaterial({ color: 0x808080, metalness: 0.45, roughness: 0.65 });
+const starVertices = [];
+for (let i = 0; i < 10000; i++) {
+    const theta = Math.random() * 2 * Math.PI;
+    const phi = Math.acos(Math.random() * 2 - 1);
+    const radius = 500 + Math.random() * 1500; // stars within a shell of radius 500 to 2000
+    const x = radius * Math.sin(phi) * Math.cos(theta);
+    const y = radius * Math.sin(phi) * Math.sin(theta);
+    const z = radius * Math.cos(phi);
+    starVertices.push(x, y, z);
+}
 
-const cylinder = new THREE.Mesh(geometry, material);
-scene.add(cylinder);
+starGeometry.setAttribute("position", new THREE.Float32BufferAttribute(starVertices, 3));
+const stars = new THREE.Points(starGeometry, starMaterial);
+scene.add(stars);
 
-// Add an ambient light to the scene
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-scene.add(ambientLight);
-
-// Add a point light to the scene
-const pointLight = new THREE.PointLight(0xffffff, 1);
-pointLight.position.set(50, 50, 50);
-pointLight.distance = 1000; // Set the distance of the light
-pointLight.power = 1000; // Set the power of the light
-scene.add(pointLight);
-
-camera.position.z = 5;
-
+// Animation loop
 function animate() {
     requestAnimationFrame(animate);
 
-    cylinder.rotation.x += 0.01;
-    cylinder.rotation.y += 0.01;
+    // Rotating the starfield for dynamic effect
+    stars.rotation.x += 0.0005;
+    stars.rotation.y += 0.0005;
 
     renderer.render(scene, camera);
 }
 
 animate();
+
+// Adjusting camera and renderer on window resize
+window.addEventListener("resize", () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
