@@ -1,14 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HELIX</title>
-    <link rel="stylesheet" href="src/style.css">
-  </head>
-  <body>
-    <img id="logo" src="public/logo.svg" alt="Logo">
-    <div id="space-canvas"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <head>
+        <link rel="icon" type="image/png" href="favicon_hlx_128.png" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HELIXLABS - Be a PRO!</title>
+        <link rel="stylesheet" href="src/style.css" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@100;300&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-HR149HTBMK"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+
+            gtag("config", "G-HR149HTBMK");
+        </script>
+        <!-- Meta Pixel Code -->
+        <script>
+            !(function (f, b, e, v, n, t, s) {
+                if (f.fbq) return;
+                n = f.fbq = function () {
+                    n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+                };
+                if (!f._fbq) f._fbq = n;
+                n.push = n;
+                n.loaded = !0;
+                n.version = "2.0";
+                n.queue = [];
+                t = b.createElement(e);
+                t.async = !0;
+                t.src = v;
+                s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s);
+            })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+            fbq("init", "277434188187226");
+            fbq("track", "PageView");
+        </script>
+        <!-- End Meta Pixel Code -->
+    </head>
+    <body>
+        <audio autoplay loop>
+            <source src="soundtrack_web.mp3" type="audio/mpeg" />
+        </audio>
+
+        <div id="coming_soon">
+            <img src="helixlabs-01.png" alt="Logo" />
+            <!-- Logo will be on top -->
+            <p>E-SHOP COMING SOON</p>
+        </div>
+
+        <div id="space-canvas"></div>
+
+        <script type="module" src="src/main.ts"></script>
+    </body>
 </html>
